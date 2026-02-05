@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JOE ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  overflow:hidden;
+}
+
+/* Pages */
+.page{
+  display:none;
+  width:100%;
+  height:100%;
+  justify-content:center;
+  align-items:center;
+  animation:fadeIn 0.8s ease;
+}
+.page.active{display:flex}
+
+/* Card */
+.card{
+  background:white;
+  padding:30px;
+  border-radius:25px;
+  text-align:center;
+  width:340px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.3);
+}
+
+/* Image – portrait friendly */
+.photo{
+  width:260px;
+  height:auto;
+  max-height:380px;
+  object-fit:contain;
+  border-radius:20px;
+  border:4px solid #ff4d6d;
+  margin-bottom:15px;
+  animation:zoom 1.2s ease;
+  background:#fff;
+}
+
+@keyframes zoom{
+  from{transform:scale(0.5);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* Text animation */
+.fadeUp{
+  animation:fadeUp 1s ease;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Buttons */
+button{
+  padding:12px 28px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+}
+
+#enter{
+  background:#ff4d6d;
+  color:white;
+  animation:pulse 1.5s infinite;
+}
+
+#yes{
+  background:#ff4d6d;
+  color:white;
+  animation:heartbeat 1.2s infinite;
+}
+
+#no{
+  background:#ccc;
+  color:#333;
+  position:absolute;
+}
+
+/* Button animations */
+@keyframes pulse{50%{transform:scale(1.1)}}
+
+@keyframes heartbeat{
+  0%{transform:scale(1)}
+  25%{transform:scale(1.1)}
+  50%{transform:scale(1)}
+  75%{transform:scale(1.15)}
+  100%{transform:scale(1)}
+}
+
+/* Falling emojis */
+.fall{
+  position:fixed;
+  top:-10px;
+  font-size:26px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="music" preload="auto" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <div class="card">
+    <h2 class="fadeUp">POWDERRRRRRRRRRRRRR 💖</h2>
+    <h3 class="fadeUp">I made something special for you…</h3>
+    <br>
+    <button id="enter" onclick="start()">Enter 💌</button>
+  </div>
+</div>
+
+<!-- PAGE 2 (Hearts only) -->
+<div class="page" id="p2">
+  <div class="card">
+  <h1>Enda Ponne Sundariaaa</h2> 
+  <h3>👑Andriya Joshna Figarado🌙</h2>
+    <h2 class="fadeUp">Will you be my Valentine? 🌹</h2>
+    <br>
+    <button id="yes" onclick="go(3)">Yes 💕</button>
+    <button id="no">No 🙈</button>
+  </div>
+</div>
+
+<!-- PAGE 3 (Image + Kisses) -->
+<div class="page" id="p3">
+  <div class="card">
+    <img src="her.jpg" class="photo" alt="Her Photo">
+    <h2 class="fadeUp">eeeeeyyyyy 😘💋</h2>
+    <h4 class="fadeUp">“You are my moon, shining far away,
+and I am your sky, empty without you.
+Every night I hold you from a distance,
+loving you in silence,
+counting days, counting stars,
+waiting for the moment distance finally lets us touch.”❤️</h4>
+    <p class="fadeUp">I Love you enda pone sundariaa I miss you  🌹</p>
+  </div>
+</div>
+
+<script>
+let rainTimer;
+
+/* Start experience */
+function start(){
+  const music=document.getElementById("music");
+  music.volume=0.8;
+  music.play().catch(()=>{});
+  go(2);
+}
+
+/* Switch pages */
+function go(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
+
+  clearInterval(rainTimer);
+  if(n===2) rain("❤️");
+  if(n===3) rain("💋");
+}
+
+/* Emoji rain */
+function rain(symbol){
+  rainTimer=setInterval(()=>{
+    const e=document.createElement("div");
+    e.className="fall";
+    e.innerHTML=symbol;
+    e.style.left=Math.random()*100+"vw";
+    e.style.animationDuration=2+Math.random()*3+"s";
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),5000);
+  },350);
+}
+
+/* NO button escape */
+const no=document.getElementById("no");
+no.onmouseover=()=>{
+  no.style.left=Math.random()*200+"px";
+  no.style.top=Math.random()*200+"px";
+};
+</script>
+
+</body>
+</html>
+
